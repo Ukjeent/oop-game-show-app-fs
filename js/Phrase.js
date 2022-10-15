@@ -1,12 +1,12 @@
 class Phrase {
     constructor(phrase) {
-        this.phrase = phrase.toLowerCase(); // this is the actual phrase the Phrase object is representing. This property should be set to the phrase parameter, but converted to all lower case.
+        this.phrase = phrase.toLowerCase(); // The active phrase from Game.activePhrase converted to lower case.
     }
 
     addPhraseToDisplay() { // adds letter placeholders to the display when the game starts
         const ul = document.getElementById('phrase').firstElementChild;
-        const arrayOfLetters = Array.from(this.phrase);
-        arrayOfLetters.forEach( element => {
+        const arrayOfLetters = Array.from(this.phrase); // Takes the phrase thats stored in this.phrase and turns it into an array of letters
+        arrayOfLetters.forEach( element => { // Lopps through the array of letter and ads the space class to spaces and letter class to letters
             const whiteSpace = /\s/;
             const li = document.createElement('li');
             li.classList.add('hide');
@@ -20,19 +20,22 @@ class Phrase {
         });
     }
 
-    // checkLetter() { // checks to see if the letter selected by the player matches a letter in the phrase.
-    //     console.log('sss');
-    // }
+    checkLetter(letterClicked) {
+        if (this.phrase.includes(letterClicked)) {
+            return true;
+        } else {
+            return false
+        }
+    }
 
-    // showMatchedLetter() {
-    //     console.log('sss'); 
-    //     // Reveals the letter(s) on the board that matches the player's selection. To reveal the matching letter(s), select all of the letter DOM elements that have a CSS class name that matches the selected letter and replace each selected element's hide CSS class with the show CSS class.
-    // }
+    showMatchedLetter(letterClicked) {
+        const letterLi = document.querySelectorAll('.letter');
+        letterLi.forEach( letter => {
+            if (letter.innerHTML === letterClicked) {
+                letter.classList.add('show');
+                letter.classList.remove('hide');
+            }
+        });
+    }
+
 }
-
-
-//turns the phrase into an array of lowercase letters
-
-// const newPhrase = new Phrase(phraseArr);
-// newPhrase.addPhraseToDisplay();
-// console.log(newPhrase);
